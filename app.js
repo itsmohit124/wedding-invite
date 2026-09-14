@@ -389,7 +389,7 @@
     if (!music.src) return null;
 
     audio.src = music.src;
-    audio.volume = typeof music.volume === 'number' ? music.volume : 0.7;
+    audio.volume = typeof music.volume === 'number' ? music.volume : 0.5;
     button.hidden = false;
     button.setAttribute('aria-label', music.label || 'Background music');
 
@@ -436,6 +436,17 @@
     var invite = document.getElementById('invite');
     var done = false;
 
+    document.documentElement.classList.add('is-sealed');
+
+    // Block scroll/gesture bleed on the sealed screen (esp. iOS rubber-band).
+    function blockScroll(event) {
+      if (document.documentElement.classList.contains('is-sealed')) {
+        event.preventDefault();
+      }
+    }
+    document.addEventListener('touchmove', blockScroll, { passive: false });
+    document.addEventListener('wheel', blockScroll, { passive: false });
+
     envelope.addEventListener('click', function () {
       if (done) return;
       done = true;
@@ -446,6 +457,9 @@
       setTimeout(function () {
         opening.classList.add('is-gone');
         invite.hidden = false;
+        document.documentElement.classList.remove('is-sealed');
+        document.removeEventListener('touchmove', blockScroll);
+        document.removeEventListener('wheel', blockScroll);
         window.scrollTo({ top: 0, behavior: 'auto' });
         initReveals();
         setTimeout(function () { opening.remove(); }, 950);
