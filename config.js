@@ -30,7 +30,7 @@ window.INVITE = {
 
   /* ---- Background music. Leave src empty to hide the music button. ------- */
   music: {
-    src: '',                        // e.g. 'assets/wedding-song.mp3'
+    src: 'assets/gopi-sundar-sid-sriram-inkem-inkem-inkem-kaavaale-from-geetha-govindam-from-ge_IzQxjLuB.mp3',
     playOnOpen: true,
     label: 'Background music'
   },
