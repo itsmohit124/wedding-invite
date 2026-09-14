@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#fdf9f1" />
+  <title>Wedding Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Italianno&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="petals" id="petals" aria-hidden="true"></div>
+
+  <div class="stage">
+    <!-- Opening envelope -->
+    <section class="opening" id="opening"></section>
+
+    <!-- The invitation itself — built from config.js -->
+    <main class="invite" id="invite" hidden></main>
+  </div>
+
+  <button class="music-btn" id="musicBtn" type="button" hidden>
+    <span class="music-icon" aria-hidden="true"></span>
+  </button>
+  <audio id="audio" loop preload="none"></audio>
+
+  <noscript>
+    <p style="font-family:serif;text-align:center;padding:2rem">
+      Please enable JavaScript to view this invitation.
+    </p>
+  </noscript>
+
+  <script src="config.js"></script>
+  <script src="scratch.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
