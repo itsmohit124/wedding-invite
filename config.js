@@ -32,6 +32,7 @@ window.INVITE = {
   music: {
     src: 'assets/gopi-sundar-sid-sriram-inkem-inkem-inkem-kaavaale-from-geetha-govindam-from-ge_IzQxjLuB.mp3',
     playOnOpen: true,
+    volume: 0.7,                    // 70% of the device / system volume
     label: 'Background music'
   },
 

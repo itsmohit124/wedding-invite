@@ -389,6 +389,7 @@
     if (!music.src) return null;
 
     audio.src = music.src;
+    audio.volume = typeof music.volume === 'number' ? music.volume : 0.7;
     button.hidden = false;
     button.setAttribute('aria-label', music.label || 'Background music');
 
