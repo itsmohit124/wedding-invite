@@ -76,10 +76,6 @@ html.is-sealed body {
   inset: 0;
   width: 100%;
 }
-html.is-sealed .stage {
-  height: 100%;
-  overflow: hidden;
-}
 
 img { display: block; max-width: 100%; }
 button { font: inherit; color: inherit; }
@@ -94,11 +90,17 @@ button { font: inherit; color: inherit; }
   background: var(--paper);
   overflow: clip;
 }
+html.is-sealed .stage {
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  overflow: hidden;
+}
 
 @media (min-width: 41rem) {
   .stage {
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 22%, transparent),
-                0 2.5rem 5rem -1.5rem rgba(90, 60, 45, 0.28);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 22%, transparent);
   }
 }
 
@@ -214,16 +216,19 @@ button { font: inherit; color: inherit; }
    Opening screen
    -------------------------------------------------------------------------- */
 .opening {
-  position: relative;
+  position: absolute;
+  inset: 0;
+  z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: clamp(1.25rem, 4vw, 2rem);
+  width: 100%;
   height: 100%;
   min-height: 100vh;
   min-height: 100svh;
-  max-height: 100svh;
+  min-height: 100dvh;
   overflow: hidden;
   padding: calc(env(safe-area-inset-top) + clamp(2rem, 8vw, 3.5rem)) var(--pad-x)
            calc(env(safe-area-inset-bottom) + clamp(2rem, 8vw, 3.5rem));
@@ -390,9 +395,11 @@ button { font: inherit; color: inherit; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: calc(env(safe-area-inset-top) + clamp(2.5rem, 9vw, 4rem));
-  padding-bottom: 0;
+  /* Override .section padding so the garden sits flush to the viewport bottom */
+  padding: calc(env(safe-area-inset-top) + clamp(2rem, 7vw, 3.25rem)) var(--pad-x) 0;
+  min-height: 100vh;
   min-height: 100svh;
+  min-height: 100dvh;
   overflow: hidden;
 }
 .hero-deities {
@@ -454,26 +461,28 @@ button { font: inherit; color: inherit; }
   margin: clamp(0.4rem, 2vw, 0.9rem) 0;
 }
 
-/* `auto` on both sides shares the leftover height evenly above and below the
-   text, so the names stay optically centred over the garden on any screen. */
+/* `auto` on top shares leftover height above the text; garden pins to the bottom */
 .hero-content {
   position: relative;
   z-index: 1;
   width: 100%;
-  margin-block: auto;
-  padding-block: clamp(1.5rem, 6vw, 2.75rem);
+  margin-top: auto;
+  margin-bottom: clamp(0.75rem, 3vw, 1.5rem);
+  padding-block: 0;
 }
 
-/* The painted garden — bled to the section edges, full width, never cropped */
+/* The painted garden — full bleed to the bottom edge of the first screen */
 .hero-garden {
   position: relative;
   z-index: 0;
   width: calc(100% + var(--pad-x) * 2);
   margin-inline: calc(var(--pad-x) * -1);
-  aspect-ratio: 864 / 615;
+  margin-top: 0;
+  flex: 0 0 auto;
+  aspect-ratio: 864 / 520;
   background: url('assets/hero-garden.jpg') bottom center / 100% auto no-repeat;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 24%, #000 93%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0, #000 24%, #000 93%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 22%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 22%);
   pointer-events: none;
 }
 
@@ -890,10 +899,13 @@ button { font: inherit; color: inherit; }
   :root { --gap-section: clamp(1.75rem, 7vw, 3rem); }
 }
 
-/* Very large screens: keep the paper column but give it more breathing room */
+/* On wide screens the paper column stays centred; no vertical padding that
+   leaves empty bands above/below the invite after opening. */
 @media (min-width: 60rem) {
-  html:not(.is-sealed) body { padding-block: 2.5rem; }
-  .stage { border-radius: 0.5rem; }
+  body {
+    background-color: var(--paper);
+    background-image: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

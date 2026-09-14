@@ -30,7 +30,7 @@ window.INVITE = {
 
   /* ---- Background music. Leave src empty to hide the music button. ------- */
   music: {
-    src: 'assets/gopi-sundar-sid-sriram-inkem-inkem-inkem-kaavaale-from-geetha-govindam-from-ge_IzQxjLuB.mp3',
+    src: 'assets/Ullam-Paadum.mp3',
     playOnOpen: true,
     volume: 0.5,                    // 70% of the device / system volume
     label: 'Background music'
